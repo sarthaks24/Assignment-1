@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main()
+{
+    int n,q,b,c,bq;
+    printf("Welcome to Domino's Pizza\n");
+    printf("Select your order\n1 - Magherita\n2 - Chicken\n3 - Farmhouse\n4 - Peppy Panner\n");
+    printf("Order: ");
+    scanf("%d",&n);
+    printf("Quantity: ");
+    scanf("%d",&q);
+    printf("Add Beverages: ");
+    scanf("%d",&b);
+    if(b==1){
+        printf("1 - 7up\n2 - Mirinda\n3 - Lava cake\n4 - Red Velvet Cake\n5 - Pasta\n");
+        printf("Select Item: ");
+        scanf("%d",&c);
+        printf("Quantity: ");
+        scanf("%d",&bq);
+    }
+    else{
+        printf("ok\n");
+    }
+    if(b==1)
+    {
+        printf("your Order of %d pizzas and %d beverages will be delivering at your door step within 30 mins.",q,bq);
+    }
+    else 
+    {
+        printf("your Order of %d pizzas will be delivering at your door step within 30 mins.",q);
+    }
+    printf("\nThank You :)");
+    
+    return 0;
+}
