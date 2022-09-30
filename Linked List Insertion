@@ -135,17 +135,106 @@ void insertend(int data2)
         printf("DATA INSERTED SUCCESSFULLY\n");
     }
 }
+void delfirst()
+{
+    struct node *del;
+
+    if(start == NULL)
+    {
+        printf("List is already empty.");
+    }
+    else
+    {
+        del = start;
+        start = start->next;
+
+        printf("\nData deleted = %d\n", del->data);
+        free(del);
+
+        printf("SUCCESSFULLY DELETED FIRST NODE FROM LIST\n");
+    }
+}
+void delmid(int pos){
+     int i;
+    struct node *del, *prevnode;
+
+    if(start == NULL)
+    {
+        printf("List is already empty.");
+    }
+    else
+    {
+        del = start;
+        prevnode = start;
+        for(i=2; i<=pos; i++)
+        {
+            prevnode = del;
+            del = del->next;
+
+            if(del == NULL)
+                break;
+        }
+
+        if(del != NULL)
+        {
+            if(del == start)
+                start = start->next;
+
+            prevnode->next = del->next;
+            del->next = NULL;
+            free(del);
+            printf("SUCCESSFULLY DELETED NODE FROM MIDDLE OF LIST\n");
+        }
+        else
+        {
+            printf("Invalid position unable to delete.");
+        }
+    }
+}
+void deleteend(){
+    struct node *del, *sln;
+
+    if(start == NULL)
+    {
+        printf("List is already empty.");
+    }
+    else
+    {
+        del = start;
+        sln = start;
+        while(del->next != NULL)
+        {
+            sln = del;
+            del = del->next;
+        }
+
+        if(del == start)
+        {
+            start = NULL;
+        }
+        else
+        {
+            /* Disconnect link of second last node with last node */
+            sln->next = NULL;
+        }
+
+        /* Delete the last node */
+        free(del);
+
+        printf("SUCCESSFULLY DELETED LAST NODE OF LIST\n");
+    }
+}
     
 int main()
 {
-    int n,s,d,p,a,f;
+    int n,s,d,p,a,f,o,u;
 
     printf("Enter the total number of nodes: ");
     scanf("%d", &n);
 
     createList(n);
     //traverseList();
-    printf("Enter the operation: \n1-front\n2-mid\n3-end\n");
+    printf("Enter the operation for insertion: \n1-front\n2-mid\n3-end\n");
     scanf("%d",&f);
     switch(f){
     case 1:
@@ -163,6 +252,22 @@ int main()
     scanf("%d",&a);
     insertend(a);
     break;
+    }
+    traverseList();
+    printf("\nEnter the operation for deletion: \n1-front\n2-mid\n3-end\n");
+    scanf("%d",&u);
+    switch(u){
+        case 1:
+        printf("\nEnter the element to be deleted front: ");
+        delfirst();
+        case 2:
+        printf("\nEnter the element to be delete mid: ");
+        scanf("%d",&o);
+        delmid(o);
+        case 3:
+        printf("\nEnter the element to deleted end: ");
+        deleteend();
+        
     }
     traverseList();
 
