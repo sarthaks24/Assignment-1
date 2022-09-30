@@ -1,0 +1,171 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+    int data;          
+    struct node *next; 
+}*start,*end;
+void createList(int n)
+{
+    struct node *newnode, *temp;
+    int data, i;
+    start = (struct node *)malloc(sizeof(struct node));
+    end = (struct node *)malloc(sizeof(struct node));
+    if(start == NULL)
+    {
+        printf("Unable to allocate memory.");
+    }
+    else{
+        end->next=newnode;
+        end=newnode;
+    }
+    printf("Enter the data of node 1: ");
+    scanf("%d", &data);
+
+    start->data = data;
+    start->next = NULL; 
+
+    temp = start;
+    for(i=2; i<=n; i++)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        if(newnode == NULL)
+        {
+            printf("Unable to allocate memory.");
+            break;
+        }
+        printf("Enter the data of node %d: ", i);
+        scanf("%d", &data);
+        newnode->data = data;
+        newnode->next = NULL;
+
+        temp->next = newnode; 
+        temp = temp->next; 
+    }
+}
+void traverseList()
+{
+    struct node *temp;
+    if(start == NULL)
+    {
+        printf("List is empty.");
+        return;
+    }
+    
+    temp = start;
+    while(temp != NULL)
+    {
+        printf("%d->", temp->data); 
+        temp = temp->next;  
+    }
+    printf("NULL");
+}
+void insertfront(int data){
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    if(newnode == NULL)
+    {
+        printf("Unable to allocate memory.");
+    }
+    else
+    {
+        newnode->data = data; 
+        newnode->next = start; 
+
+        start = newnode;          
+
+        printf("DATA INSERTED SUCCESSFULLY\n");
+    }
+}
+void insertmid(int data1,int pos){
+    int i;
+    struct node *newnode, *temp;
+
+    newnode = (struct node*)malloc(sizeof(struct node));
+
+    if(newnode == NULL)
+    {
+        printf("Unable to allocate memory.");
+    }
+    else
+    {
+        newnode->data = data1; 
+        newnode->next = NULL;
+
+        temp = start;
+        for(i=2; i<=pos-1; i++)
+        {
+            temp = temp->next;
+            if(temp == NULL)
+                break;
+        }
+
+        if(temp != NULL)
+        {
+            newnode->next = temp->next; 
+            temp->next = newnode;
+
+            printf("DATA INSERTED SUCCESSFULLY\n");
+        }
+        else
+        {
+            printf("UNABLE TO INSERT DATA AT THE GIVEN POSITION\n");
+        }
+    }
+    
+}
+void insertend(int data2)
+{
+    struct node *newnode, *temp;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    if(newnode == NULL)
+    {
+        printf("Unable to allocate memory.");
+    }
+    else
+    {
+        newnode->data = data2; 
+        newnode->next = NULL; 
+
+        temp = start;
+        while(temp != NULL && temp->next != NULL)
+            temp = temp->next;
+        temp->next = newnode; 
+
+        printf("DATA INSERTED SUCCESSFULLY\n");
+    }
+}
+    
+int main()
+{
+    int n,s,d,p,a,f;
+
+    printf("Enter the total number of nodes: ");
+    scanf("%d", &n);
+
+    createList(n);
+    //traverseList();
+    printf("Enter the operation: \n1-front\n2-mid\n3-end\n");
+    scanf("%d",&f);
+    switch(f){
+    case 1:
+    printf("\nEnter the element to be inserted front: ");
+    scanf("%d",&s);
+    insertfront(s);
+    break;
+    case 2:
+    printf("\nEnter the element and its position to be inserted mid: ");
+    scanf("%d %d",&d,&p);
+    insertmid(d,p);
+    break;
+    case 3:
+    printf("\nEnter the element to be inserted end: ");
+    scanf("%d",&a);
+    insertend(a);
+    break;
+    }
+    traverseList();
+
+    return 0;
+}
+
