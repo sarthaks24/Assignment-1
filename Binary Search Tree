@@ -1,0 +1,83 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+struct node *create(int item){
+    struct node *newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=item;
+    newnode->left=newnode->right=NULL;
+    return newnode;
+}
+void inorder(struct node* root){
+    if(root==NULL){
+        return;
+    }
+    inorder(root->left);
+    printf("%d ",root->data);
+    inorder(root->right);
+}
+struct node *findmin(struct node* cur){
+    while(cur->left!=NULL){
+        cur=cur->left;
+    }
+    printf("\nMinimum value: %d",cur->data);
+    return cur;
+}
+struct node *findmax(struct node* cur){
+    while(cur->right!=NULL){
+        cur=cur->right;
+    }
+    printf("\nMaximum value: %d\n",cur->data);
+    return cur;
+}
+struct node *insertion(struct node* root,int item){
+    if(root==NULL){
+        return create(item);
+    }
+    else if(item<root->data){
+        root->left=insertion(root->left,item);
+    }
+    else{
+        root->right=insertion(root->right,item);
+    }
+    return root;
+}
+/*void search(struct node* &cur, int item, struct node* &parent)  
+{  
+    while (cur != NULL && cur->data != item)  
+    {  
+        parent = cur;  
+        if (item < cur->data)  
+            cur = cur->left;  
+        else  
+            cur = cur->right;  
+    }  
+} */
+int main()
+{
+    struct node* root = NULL;  
+    root = insertion(root, 45);  
+    root = insertion(root, 30);  
+    root = insertion(root, 50);  
+    root = insertion(root, 25);  
+    root = insertion(root, 35);  
+    root = insertion(root, 45);  
+    root = insertion(root, 60);  
+    root = insertion(root, 4);
+    inorder(root);
+    //root=findmin(root);
+    root=findmax(root);
+
+    return 0;
+}
